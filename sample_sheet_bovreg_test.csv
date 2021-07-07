@@ -1,3 +1,3 @@
 sample,fastq_1,fastq_2,strandedness
 ERR3555856,s3://bovreg-rnaseq-test-dataset/ERR3555856_1.fastq.gz,s3://bovreg-rnaseq-test-dataset/ERR3555856_2.fastq.gz,reverse
-ERR3555857,s3://bovreg-rnaseq-test-dataset/ERR3555857_2.fastq.gz,s3://bovreg-rnaseq-test-dataset/ERR3555857_2.fastq.gz,reverse
+ERR3555857,s3://bovreg-rnaseq-test-dataset/ERR3555857_1.fastq.gz,s3://bovreg-rnaseq-test-dataset/ERR3555857_2.fastq.gz,reverse
