@@ -59,6 +59,14 @@ The info is mainly summarized from [here](https://github.com/tderrien/FEELnc)
 
 The main step of the pipeline (FEELnc_codpot) aims at computing the coding potential score (CPS),ranging between 0 and 1, foreach of the candidate transcripts in the `candidate_lncRNA.gtf` file.
 
+3. `FEELnc_classifier.pl`
+
+The third FEELnc module (`FEELnc_classifier`) formalizes the annotation of lncRNAs based on neighboring genes in order to predict lncRNA functions and RNA partners.
+Examples: 
+
+* intergenic antisense upstream’ which correspond to divergent lincRNAs (i.e. transcribed in head to head orientation with the RNA partner).
+
+* lincRNAs located less than 5kb from their mRNA partner, belong to the ‘sense intergenic upstream’ class and may correspond to dubious lncRNAs that are actually 5΄UTR extensions of the neighboring protein-coding RNAs
 ## Things TODO
 
 * Check if `stringtie` needs to be reimplemented for `stringtie quantify` **#Done**
