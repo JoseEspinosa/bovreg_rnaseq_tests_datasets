@@ -76,10 +76,59 @@ NXF_VER=21.04.1 nextflow run main.nf --save_reference -c ./conf/test_bovreg.conf
 
 * I am outputting all the `feelnc`versions since they are separate modules (`feelnc_codplot`, `feelnc_classifier`, `feelnc_filter`)
 
-## 14/07/2021 TODO
+## 14/07/2021 TODOs
+
+* Mandatory
 
 [ ] hacer lo de `-e`, skip stringtie second steps
 
 [ ] comprobar lo de la shebang de awk
 
 [ ] subworkflows
+    [x] feelnc
+    [ ] stringtie additional steps
+
+[ ] add `skip-feelnc` in `nextflow.schema`
+
+[x] hisat2 does it works?
+
+* Not mandatory
+
+[ ] add more files from `codpot` and `classifier`logs and stuff
+
+[x] Move `format_stringtie_gtf`from `modules.config` to something such as `deseq2_qc_salmon_options.publish_dir` in `rnaseq.nf` NOT NEEDED there are examples such as:
+
+```console
+'qualimap_rnaseq' {
+    publish_dir     = "${params.aligner}/qualimap"
+}
+```
+
+* [36/2e55c1] Cached process > NFCORE_RNASEQ:RNASEQ:FORMAT_STRINGTIE_GTF (stringtie.merged.gtf)
+
+```console
+cd /users/cn/jespinosa/scratch/36/2e55c1e0f98aade85f4e9b3e410592
+grep ENSBTAT00000008737 ARS-UCD1.2_Btau5.0.1Y_lifted_from_Ensemblv102.gtf
+grep ENSBTAT00000008737 stringtie.merged.biotypes.gtf 
+grep ENSBTAT00000008737 new.genes.gff
+```
+
+cat stringtie.merged.biotypes.gtf | grep StringTie | grep protein_coding | grep transcript:ENSBTAT00000069841
+cat new.genes.gff | grep transcript:ENSBTAT00000069841
+
+Estas lineas las necesito?
+
+```console
+reference_annotation_to_quantify.combine(Channel.of('reference')).concat(
+  novel_annotation_to_quantify.combine(Channel.of('novel'))
+).combine(maps_to_quantify).set {
+  maps_to_quantify
+}
+```
+
+Creo que solo es crear un channel con las values reference y novel
+
+Si y luego lo que hace es correr stringtie con la referencia y con el nuevo gtf
+## Modules stuff
+
+[ ] Stringtie merge does not output version
