@@ -2,6 +2,8 @@
 
 ## Cmds
 
+### Cluster
+
 * Run the bovreg test in the cluster
 
 ```console
@@ -14,10 +16,12 @@ NXF_VER=21.04.1 nextflow run main.nf --save_reference -c ./conf/test_bovreg.conf
 NXF_VER=21.04.1 nextflow run main.nf --save_reference --aligner hisat2 --max_memory 24GB -c ./conf/test_bovreg.config -c /users/cn/jespinosa/git/lab_nxf_configs/conf/crg_cbcrg.config -profile singularity -bg -resume
 ```
 
+### Local
+
 * Run the bovreg test in local
 
 ```console
-NXF_VER=21.04.1 nextflow run main.nf --skip_feelnc -profile docker,test -resume
+NXF_VER=21.04.1 nextflow run main.nf --skip_feelnc --stringtie_ignore_gtf -profile docker,test -resume
 ```
 
 * Run tagada pipeline on test profile in local
@@ -126,7 +130,14 @@ reference_annotation_to_quantify.combine(Channel.of('reference')).concat(
 }
 ```
 
-Creo que solo es crear un channel con las values reference y novel
+It only creates a channel and tags it with novel of reference `value` depending on its origin
+
+[/da/58a5f2ca542f5ef9b056ae98b3bbc6/genes.gtf, reference, WT, 98, --rf, /0c/8f535309165ee30a3d09cfd0a33d50/WT.bam]
+[/85/c04aa26ed32ec167771fb3216eb171/novel.gff, novel, WT, 98, --rf, /0c/8f535309165ee30a3d09cfd0a33d50/WT.bam]
+[/da/58a5f2ca542f5ef9b056ae98b3bbc6/genes.gtf, reference, RAP1_IAA_30M, 99, --rf, /b9/eeb3b4816401f5801fa3f0d6a28a9c/RAP1_IAA_30M.bam]
+[/85/c04aa26ed32ec167771fb3216eb171/novel.gff, novel, RAP1_IAA_30M, 99, --rf, /b9/eeb3b4816401f5801fa3f0d6a28a9c/RAP1_IAA_30M.bam]
+[/da/58a5f2ca542f5ef9b056ae98b3bbc6/genes.gtf, reference, RAP1_UNINDUCED, 98, --rf, /cd/30e1ee71643283534093000c8c2a42/RAP1_UNINDUCED.bam]
+[/85/c04aa26ed32ec167771fb3216eb171/novel.gff, novel, RAP1_UNINDUCED, 98, --rf, /cd/30e1ee71643283534093000c8c2a42/RAP1_UNINDUCED.bam]
 
 Si y luego lo que hace es correr stringtie con la referencia y con el nuevo gtf
 ## Modules stuff
