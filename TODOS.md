@@ -74,35 +74,4 @@ Examples:
 * intergenic antisense upstream’ which correspond to divergent lincRNAs (i.e. transcribed in head to head orientation with the RNA partner).
 
 * lincRNAs located less than 5kb from their mRNA partner, belong to the ‘sense intergenic upstream’ class and may correspond to dubious lncRNAs that are actually 5΄UTR extensions of the neighboring protein-coding RNAs.
-## Things TODO
 
-* Check if `stringtie` needs to be reimplemented for `stringtie quantify` **#Done**
-
-    The same module can be used, note that the option `stringtie_ignore_gtf` should be used
-
-* Parametrize everything in `modules.config` **#Done**
-
-* Test with real cow data. **#workInProgress**
-
-* Check what does all the code of TAGADA for rearranging files
-
-* Implement `skip_feelnc` and skip it for tests **#Done**
-
-* Add cpus parameter to command line of stringtie
-
-* Create a complete subworkflow for:
-    * stringtie
-    * feelnc
-
-* Change `stringtie_merge` by the version on nf-core **#Done**
-
-* This one was tag for using it as a template, but I don't remember why: `$params.gtf_group_features` in `salmon_tx2gene.nf`
-## In case of having time
-
-* Multiqc?
-
-* Check the gff and gtf naming
-
-## Test configuration
-
-The minimum reference genome requirements are a FASTA and GTF file, all other files required to run the pipeline can be generated from these files. However, it is more storage and compute friendly if you are able to re-use reference genome files as efficiently as possible. It is recommended to use the --save_reference

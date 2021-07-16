@@ -30,11 +30,15 @@
   NXF_VER=21.04.1 nextflow run main.nf -c ./conf/test_bovreg.config --skip_feelnc --stringtie_ignore_gtf -profile docker
   ```
 
-* Run tagada pipeline on test profile in local
+* Run FAANG/TAGADA pipeline on test profile in local
 
   ```console
   NXF_VER=21.04.1 nextflow run main.nf --output directory -c test/test.config -profile singularity -resume
   ```
+
+## Test configuration
+
+The minimum reference genome requirements are a FASTA and GTF file, all other files required to run the pipeline can be generated from these files. However, it is more storage and compute friendly if you are able to re-use reference genome files as efficiently as possible. It is recommended to use the --save_reference
 
 ## Obtain reference
 
@@ -56,7 +60,7 @@
 
 The container needs `gawk` to make the awk scripts work.
 
-## Issues
+## TODOs
 
 ### Mandatory
 
@@ -73,9 +77,11 @@ The container needs `gawk` to make the awk scripts work.
   I finally implemented directly in the shell section the awk code since otherwise I needed a shebang for awk that is different for conda and containers environments.
   If I just put the snippet there in `FORMAT_STRINGTIE_GTF` then it works.
 
-* [x] subworkflows
+* [x] Create a complete subworkflow for:
       * [x] feelnc
       * [x] stringtie additional steps
+
+* [x] Implement `skip_feelnc` and skip it for tests **#Done**
 
 * [x] add `skip-feelnc` in `nextflow.schema`
 
@@ -83,11 +89,24 @@ The container needs `gawk` to make the awk scripts work.
 
 * [x] If -e is specified avoid merge and quantify
 
+* [x] Parametrize everything in `modules.config` **#Done**
+
+* [x] Change `stringtie_merge` by the version on nf-core
+
 * [x] Hisat 2 run aligner test:
 
   ```console
   NXF_VER=21.04.1 nextflow run main.nf --save_reference -c ./conf/test_bovreg.config -c /users/cn/jespinosa/git/lab_nxf_configs/conf/crg_cbcrg.config -profile singularity,bovreg --aligner hisat2 -bg -resume
   ```
+
+* [x] Check if `stringtie` needs to be reimplemented for `stringtie quantify` **#Done**
+
+    The same module can be used, note that the option `stringtie_ignore_gtf` should be used
+
+* [ ] Check what does all the code of TAGADA for rearranging files
+
+* [ ] Test with real cow data. **#workInProgress**
+
 * [ ] Check how to create the python script to format the gtf files
 
   [36/2e55c1] Cached process > NFCORE_RNASEQ:RNASEQ:FORMAT_STRINGTIE_GTF (stringtie.merged.gtf)
@@ -106,7 +125,12 @@ The container needs `gawk` to make the awk scripts work.
 
 * [ ] CI implement
 
+* [ ] Add cpus parameter to command line of stringtie
+
+
 ### Not mandatory
+
+* [ ] Add new processes to the `multiqc` report
 
 * [ ] add more files from `codpot` and `classifier`logs and stuff
 
@@ -144,6 +168,12 @@ The container needs `gawk` to make the awk scripts work.
 * [ ] Update logs, docs and similar stuff.
 
 * [ ] Mention the procedence of the tagada scripts.
+
+* [ ] Check the gff and gtf naming
+
+* [ ] * This one was tag for using it as a template, but I don't remember why: `$params.gtf_group_features` in `salmon_tx2gene.nf`
+
+  The `--gtf_group_features_type` parameter will automatically be set to `gene_type` as opposed to `gene_biotype`, respectively.
 
 ### Modules-related
 
