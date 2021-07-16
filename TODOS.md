@@ -106,4 +106,3 @@ Examples:
 ## Test configuration
 
 The minimum reference genome requirements are a FASTA and GTF file, all other files required to run the pipeline can be generated from these files. However, it is more storage and compute friendly if you are able to re-use reference genome files as efficiently as possible. It is recommended to use the --save_reference
-
