@@ -58,6 +58,8 @@ The container needs `gawk` to make the awk scripts work.
 
 ## Issues
 
+### Mandatory
+
 * Issue with awk in the biotype assignment
 
   Probably the problem is that the `transcript_id` is `transcript:ENSBTAT00000007786` in the file `ARS-UCD1.2_Btau5.0.1Y_lifted_from_Ensemblv102.gtf` the `transcript:` probably is the problem to match the ids.
@@ -66,57 +68,27 @@ The container needs `gawk` to make the awk scripts work.
 
   transcript_id "transcript:ENSBTAT00000007786"; gene_id "ENSBTAG00000006648"; protein_id "ENSBTAP00000007786"; extra_copy_number "0";
 
-* awk shebang problem, check it with the script
+* [x] awk shebang problem, check it with the script
 
   I finally implemented directly in the shell section the awk code since otherwise I needed a shebang for awk that is different for conda and containers environments.
   If I just put the snippet there in `FORMAT_STRINGTIE_GTF` then it works.
 
-Linting
-And CI
-bucket s3
-Pass you the files
+* [x] subworkflows
+      * [x] feelnc
+      * [x] stringtie additional steps
 
-* If -e is specified avoid merge and quantify
+* [x] add `skip-feelnc` in `nextflow.schema`
 
-* Hisat 2 run aligner test:
+* [x] hisat2 does it works?
+
+* [x] If -e is specified avoid merge and quantify
+
+* [x] Hisat 2 run aligner test:
 
   ```console
   NXF_VER=21.04.1 nextflow run main.nf --save_reference -c ./conf/test_bovreg.config -c /users/cn/jespinosa/git/lab_nxf_configs/conf/crg_cbcrg.config -profile singularity,bovreg --aligner hisat2 -bg -resume
   ```
-
-## Decisions during development that might be revisited
-
-* I am outputting all the `feelnc`versions since they are separate modules (`feelnc_codplot`, `feelnc_classifier`, `feelnc_filter`)
-
-## 14/07/2021 TODOs
-
-* Mandatory
-
-  [x] hacer lo de `-e`, skip stringtie second steps
-
-  [ ] comprobar lo de la shebang de awk
-
-  [x] subworkflows
-      [x] feelnc
-      [x] stringtie additional steps
-
-  [x] add `skip-feelnc` in `nextflow.schema`
-
-  [x] hisat2 does it works?
-
-* Not mandatory
-
-[ ] add more files from `codpot` and `classifier`logs and stuff
-
-[x] Move `format_stringtie_gtf`from `modules.config` to something such as `deseq2_qc_salmon_options.publish_dir` in `rnaseq.nf` NOT NEEDED there are examples such as:
-
-```console
-'qualimap_rnaseq' {
-    publish_dir     = "${params.aligner}/qualimap"
-}
-```
-
-* Check how to create the python script to format the gtf files
+* [ ] Check how to create the python script to format the gtf files
 
   [36/2e55c1] Cached process > NFCORE_RNASEQ:RNASEQ:FORMAT_STRINGTIE_GTF (stringtie.merged.gtf)
 
@@ -130,7 +102,23 @@ Pass you the files
   cat stringtie.merged.biotypes.gtf | grep StringTie | grep protein_coding | grep transcript:ENSBTAT00000069841
   cat new.genes.gff | grep transcript:ENSBTAT00000069841
 
-* Do we need to also quantify against the original reference
+* [ ] Linting
+
+* [ ] CI implement
+
+### Not mandatory
+
+* [ ] add more files from `codpot` and `classifier`logs and stuff
+
+* [x] Move `format_stringtie_gtf`from `modules.config` to something such as `deseq2_qc_salmon_options.publish_dir` in `rnaseq.nf` NOT NEEDED there are examples such as:
+
+  ```console
+  'qualimap_rnaseq' {
+      publish_dir     = "${params.aligner}/qualimap"
+  }
+  ```
+
+* [ ] Do we need to also quantify against the original reference
 
   ```console
   reference_annotation_to_quantify.combine(Channel.of('reference')).concat(
@@ -151,11 +139,16 @@ Pass you the files
   [/85/c04aa26ed32ec167771fb3216eb171/novel.gff, novel, RAP1_UNINDUCED, 98, --rf, /cd/30e1ee71643283534093000c8c2a42/RAP1_UNINDUCED.bam]
   ```
 
-* Update logs, docs and similar stuff
+  Si y luego lo que hace es correr stringtie con la referencia y con el nuevo gtf.
 
-* Mention the procedence of the tagada scripts
+* [ ] Update logs, docs and similar stuff.
 
-  Si y luego lo que hace es correr stringtie con la referencia y con el nuevo gtf
-## Modules stuff
+* [ ] Mention the procedence of the tagada scripts.
 
-  [ ] Stringtie merge does not output the version
+### Modules-related
+
+* [ ] Stringtie merge does not output the version
+
+## Decisions during development that might be revisited
+
+* I am outputting all the `feelnc`versions since they are separate modules (`feelnc_codplot`, `feelnc_classifier`, `feelnc_filter`)
