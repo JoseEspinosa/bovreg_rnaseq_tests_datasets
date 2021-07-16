@@ -24,6 +24,12 @@ NXF_VER=21.04.1 nextflow run main.nf --save_reference --aligner hisat2 --max_mem
 NXF_VER=21.04.1 nextflow run main.nf --skip_feelnc --stringtie_ignore_gtf -profile docker,test -resume
 ```
 
+* Local with aws data
+
+```console
+NXF_VER=21.04.1 nextflow run main.nf -c ./conf/test_bovreg.config --skip_feelnc --stringtie_ignore_gtf -profile docker
+```
+
 * Run tagada pipeline on test profile in local
 
 ```console
@@ -84,15 +90,15 @@ NXF_VER=21.04.1 nextflow run main.nf --save_reference -c ./conf/test_bovreg.conf
 
 * Mandatory
 
-[ ] hacer lo de `-e`, skip stringtie second steps
+[x] hacer lo de `-e`, skip stringtie second steps
 
 [ ] comprobar lo de la shebang de awk
 
-[ ] subworkflows
+[x] subworkflows
     [x] feelnc
-    [ ] stringtie additional steps
+    [x] stringtie additional steps
 
-[ ] add `skip-feelnc` in `nextflow.schema`
+[x] add `skip-feelnc` in `nextflow.schema`
 
 [x] hisat2 does it works?
 
@@ -108,7 +114,9 @@ NXF_VER=21.04.1 nextflow run main.nf --save_reference -c ./conf/test_bovreg.conf
 }
 ```
 
-* [36/2e55c1] Cached process > NFCORE_RNASEQ:RNASEQ:FORMAT_STRINGTIE_GTF (stringtie.merged.gtf)
+* Check how to create the python script to format the gtf files
+
+[36/2e55c1] Cached process > NFCORE_RNASEQ:RNASEQ:FORMAT_STRINGTIE_GTF (stringtie.merged.gtf)
 
 ```console
 cd /users/cn/jespinosa/scratch/36/2e55c1e0f98aade85f4e9b3e410592
@@ -120,7 +128,7 @@ grep ENSBTAT00000008737 new.genes.gff
 cat stringtie.merged.biotypes.gtf | grep StringTie | grep protein_coding | grep transcript:ENSBTAT00000069841
 cat new.genes.gff | grep transcript:ENSBTAT00000069841
 
-Estas lineas las necesito?
+* Do we need to also quantify against the original reference
 
 ```console
 reference_annotation_to_quantify.combine(Channel.of('reference')).concat(
@@ -132,14 +140,20 @@ reference_annotation_to_quantify.combine(Channel.of('reference')).concat(
 
 It only creates a channel and tags it with novel of reference `value` depending on its origin
 
+```console
 [/da/58a5f2ca542f5ef9b056ae98b3bbc6/genes.gtf, reference, WT, 98, --rf, /0c/8f535309165ee30a3d09cfd0a33d50/WT.bam]
 [/85/c04aa26ed32ec167771fb3216eb171/novel.gff, novel, WT, 98, --rf, /0c/8f535309165ee30a3d09cfd0a33d50/WT.bam]
 [/da/58a5f2ca542f5ef9b056ae98b3bbc6/genes.gtf, reference, RAP1_IAA_30M, 99, --rf, /b9/eeb3b4816401f5801fa3f0d6a28a9c/RAP1_IAA_30M.bam]
 [/85/c04aa26ed32ec167771fb3216eb171/novel.gff, novel, RAP1_IAA_30M, 99, --rf, /b9/eeb3b4816401f5801fa3f0d6a28a9c/RAP1_IAA_30M.bam]
 [/da/58a5f2ca542f5ef9b056ae98b3bbc6/genes.gtf, reference, RAP1_UNINDUCED, 98, --rf, /cd/30e1ee71643283534093000c8c2a42/RAP1_UNINDUCED.bam]
 [/85/c04aa26ed32ec167771fb3216eb171/novel.gff, novel, RAP1_UNINDUCED, 98, --rf, /cd/30e1ee71643283534093000c8c2a42/RAP1_UNINDUCED.bam]
+```
+
+* Update logs, docs and similar stuff
+
+* Mention the procedence of the tagada scripts
 
 Si y luego lo que hace es correr stringtie con la referencia y con el nuevo gtf
 ## Modules stuff
 
-[ ] Stringtie merge does not output version
+[ ] Stringtie merge does not output the version
