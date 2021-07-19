@@ -75,3 +75,18 @@ Examples:
 
 * lincRNAs located less than 5kb from their mRNA partner, belong to the ‘sense intergenic upstream’ class and may correspond to dubious lncRNAs that are actually 5΄UTR extensions of the neighboring protein-coding RNAs.
 
+### prepDE.py (from Stringtie [docs](https://ccb.jhu.edu/software/stringtie/index.shtml?t=manual))
+
+prepDE.py derives hypothetical read counts for each transcript from the coverage values estimated by StringTie for each transcript, by using this simple formula: reads_per_transcript = coverage * transcript_len / read_len
+
+There are two ways to provide input to the prepDE.py script:
+
+1. one option is to provide a path to a directory containing all sample sub-directories, with the same structure as the ballgown directory in the StringTie protocol paper in preparation for Ballgown. By default (no -i option), the script is going to look in the current directory for all sub-directories having .gtf files in them, as in this example:
+
+    ```console
+    ./sample1/sample1.gtf
+    ./sample2/sample2.gtf
+    ./sample3/sample3.gtf
+    ```
+
+Alternatively, one can provide a text file listing sample IDs and their respective paths (sample_lst.txt)
