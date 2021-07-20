@@ -90,3 +90,9 @@ There are two ways to provide input to the prepDE.py script:
     ```
 
 Alternatively, one can provide a text file listing sample IDs and their respective paths (sample_lst.txt)
+
+Usage: prepDE.py [options]
+generates two CSV files containing the count matrices for genes and transcripts, using the coverage values found in the output of stringtie -e
+
+Options:
+-i INPUT, --input=INPUT, --in=INPUT	a folder containing all sample sub-directories, or a text file with sample ID and path to its GTF file on each line [default: . ]
