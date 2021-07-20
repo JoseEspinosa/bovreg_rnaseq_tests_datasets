@@ -127,6 +127,7 @@ The container needs `gawk` to make the awk scripts work.
 
 * [ ] Add cpus parameter to command line of stringtie
 
+* [ ] Check for missing TAGADA steps.
 
 ### Not mandatory
 
@@ -174,6 +175,8 @@ The container needs `gawk` to make the awk scripts work.
 * [ ] * This one was tag for using it as a template, but I don't remember why: `$params.gtf_group_features` in `salmon_tx2gene.nf`
 
   The `--gtf_group_features_type` parameter will automatically be set to `gene_type` as opposed to `gene_biotype`, respectively.
+
+* [ ] Think whether the `-l 100` option of the `stringtie_prepde` module (`prepDE.py` execution) to provide the read length should be provided as a parameter.
 
 ### Modules-related
 
