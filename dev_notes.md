@@ -125,9 +125,13 @@ The container needs `gawk` to make the awk scripts work.
 
 * [ ] CI implement
 
-* [ ] Add cpus parameter to command line of stringtie
+* [x] Add cpus parameter to command line of stringtie
 
 * [ ] Check for missing TAGADA steps.
+
+* [ ] Update stringtie version
+
+* [ ] Update the way stringtie prepDE outputs version
 
 ### Not mandatory
 
@@ -180,7 +184,7 @@ The container needs `gawk` to make the awk scripts work.
 
 ### Modules-related
 
-* [ ] Stringtie merge does not output the version
+* [x] Stringtie merge does not output the version
 
 ## Decisions during development that might be revisited
 
