@@ -103,11 +103,11 @@ The container needs `gawk` to make the awk scripts work.
 
     The same module can be used, note that the option `stringtie_ignore_gtf` should be used
 
-* [ ] Check what does all the code of TAGADA for rearranging files
+* [x] Check what does all the code of TAGADA for rearranging files
 
-* [ ] Test with real cow data. **#workInProgress**
+* [x] Test with real cow data. **#workInProgress**
 
-* [ ] Check how to create the python script to format the gtf files
+* [x] Check how to create the python script to format the gtf files
 
   [36/2e55c1] Cached process > NFCORE_RNASEQ:RNASEQ:FORMAT_STRINGTIE_GTF (stringtie.merged.gtf)
 
@@ -121,7 +121,7 @@ The container needs `gawk` to make the awk scripts work.
   cat stringtie.merged.biotypes.gtf | grep StringTie | grep protein_coding | grep transcript:ENSBTAT00000069841
   cat new.genes.gff | grep transcript:ENSBTAT00000069841
 
-* [ ] Linting
+* [x] Linting
 
 * [ ] CI implement
 
@@ -129,9 +129,9 @@ The container needs `gawk` to make the awk scripts work.
 
 * [ ] Check for missing TAGADA steps.
 
-* [ ] Update stringtie version
+* [x] Update stringtie version
 
-* [ ] Update the way stringtie prepDE outputs version
+* [x] Update the way stringtie prepDE outputs version
 
 ### Not mandatory
 
@@ -147,7 +147,7 @@ The container needs `gawk` to make the awk scripts work.
   }
   ```
 
-* [ ] Do we need to also quantify against the original reference
+* [x] Do we need to also quantify against the original reference
 
   ```console
   reference_annotation_to_quantify.combine(Channel.of('reference')).concat(
@@ -182,6 +182,7 @@ The container needs `gawk` to make the awk scripts work.
 
 * [ ] Think whether the `-l 100` option of the `stringtie_prepde` module (`prepDE.py` execution) to provide the read length should be provided as a parameter.
 
+* [ ] Add the new parameters to the json file.
 ### Modules-related
 
 * [x] Stringtie merge does not output the version
