@@ -40,22 +40,22 @@ The equivalent thing in the nf-core pipeline is to use the `--stringtie_ignore_g
 
 The info is mainly summarized from [here](https://github.com/tderrien/FEELnc)
 
-1. `FEELnc_filter.pl` removes transcripts with exons of the reference annotation, especially protein coding exons. These transcripts are filtered since the most probable is that they belong to new mRNA isoforms
+1.`FEELnc_filter.pl` removes transcripts with exons of the reference annotation, especially protein coding exons. These transcripts are filtered since the most probable is that they belong to new mRNA isoforms
 
-    ```console
-    FEELnc_filter.pl --mRNAfile $reference_annotation \\
-        --infile $novel_annotation \\
-        --biotype transcript_biotype=protein_coding \\
-        > candidate_transcripts.gtf
-    ```
+```console
+FEELnc_filter.pl --mRNAfile $reference_annotation \\
+    --infile $novel_annotation \\
+    --biotype transcript_biotype=protein_coding \\
+    > candidate_transcripts.gtf
+```
 
-    Note:
+Note:
 
-    ```console
-    -b,--biotype                  Only consider transcript(s) from the reference annotation having this(these) biotype(s) (e.g : -b transcript_biotype=protein_coding,pseudogene) [default undef i.e all transcripts]
-    ```
+```console
+-b,--biotype                  Only consider transcript(s) from the reference annotation having this(these) biotype(s) (e.g : -b transcript_biotype=protein_coding,pseudogene) [default undef i.e all transcripts]
+```
 
-2. `FEELnc_codpot.pl`
+2.`FEELnc_codpot.pl`
 
 The main step of the pipeline (FEELnc_codpot) aims at computing the coding potential score (CPS),ranging between 0 and 1, foreach of the candidate transcripts in the `candidate_lncRNA.gtf` file.
 
@@ -69,6 +69,7 @@ FEELnc allows the user to increase the performance metrics to obtain high-confid
 3. `FEELnc_classifier.pl`
 
 The third FEELnc module (`FEELnc_classifier`) formalizes the annotation of lncRNAs based on neighboring genes in order to predict lncRNA functions and RNA partners.
+
 Examples: 
 
 * intergenic antisense upstream’ which correspond to divergent lincRNAs (i.e. transcribed in head to head orientation with the RNA partner).
