@@ -21,7 +21,7 @@
 * Run the bovreg test in local
 
   ```console
-  NXF_VER=21.04.1 nextflow run main.nf --skip_feelnc --stringtie_ignore_gtf -profile docker,test -resume
+  NXF_VER=21.04.1 nextflow run main.nf --skip_feelnc --stringtie_ignore_gtf --multiqc_custom_config assets/multiqc_config_bovreg.yaml -profile docker,test -resume
   ```
 
 * Local with aws data
@@ -78,8 +78,9 @@ The container needs `gawk` to make the awk scripts work.
   If I just put the snippet there in `FORMAT_STRINGTIE_GTF` then it works.
 
 * [x] Create a complete subworkflow for:
-      * [x] feelnc
-      * [x] stringtie additional steps
+
+  * [x] feelnc
+  * [x] stringtie additional steps
 
 * [x] Implement `skip_feelnc` and skip it for tests **#Done**
 
@@ -133,6 +134,12 @@ The container needs `gawk` to make the awk scripts work.
 
 * [x] Update the way stringtie prepDE outputs version
 
+* [ ] Add versions collect
+
+* [ ] Add stringtie to multiqc report
+
+* [ ] Add new parameters to json file 
+
 ### Not mandatory
 
 * [ ] Add new processes to the `multiqc` report
@@ -170,7 +177,7 @@ The container needs `gawk` to make the awk scripts work.
 
   Si y luego lo que hace es correr stringtie con la referencia y con el nuevo gtf.
 
-* [ ] Update logs, docs and similar stuff.
+* [ ] Update logs, docs and similar stuff. #WorkInProgress
 
 * [ ] Mention the procedence of the tagada scripts.
 
@@ -182,7 +189,8 @@ The container needs `gawk` to make the awk scripts work.
 
 * [ ] Think whether the `-l 100` option of the `stringtie_prepde` module (`prepDE.py` execution) to provide the read length should be provided as a parameter.
 
-* [ ] Add the new parameters to the json file.
+* [x] Add the new parameters to the json file.
+
 ### Modules-related
 
 * [x] Stringtie merge does not output the version
@@ -190,3 +198,13 @@ The container needs `gawk` to make the awk scripts work.
 ## Decisions during development that might be revisited
 
 * I am outputting all the `feelnc`versions since they are separate modules (`feelnc_codplot`, `feelnc_classifier`, `feelnc_filter`)
+
+## Things that might be tackle on future versions
+
+* The arguments of the `feelnc/codplot` module are directly provided in the script section, they could be passed as arguments using the `modules.config` configuration file.
+
+## Multiqc feelnc
+
+* The problem is that to run multiqc the tagada pipeline uses a custom multiqc plugin, see [here](https://github.com/FAANG/analysis-TAGADA/blob/c3c8c6a334d67c1b520614935b730134cb95eeaa/Dockerfile#L28-L30)
+
+We may have to develop/copy the plugin and make it work on the pipeline, the problem is that then the image will be a custom one. 
