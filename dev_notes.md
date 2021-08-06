@@ -207,4 +207,7 @@ The container needs `gawk` to make the awk scripts work.
 
 * The problem is that to run multiqc the tagada pipeline uses a custom multiqc plugin, see [here](https://github.com/FAANG/analysis-TAGADA/blob/c3c8c6a334d67c1b520614935b730134cb95eeaa/Dockerfile#L28-L30)
 
-We may have to develop/copy the plugin and make it work on the pipeline, the problem is that then the image will be a custom one. 
+  We may have to develop/copy the plugin and make it work on the pipeline, the problem is that then the image will be a custom one.
+
+  Or maybe take as example the add-hoc modules and generate a parsable (csv, tsv, txt or whatever multiqc needs) to create a plot. As an example we can use the **SALMON DESeq2 PCA plot**. The corresponding file can be found in `$HOME/test_bovreg_rnaseq_delete/multiqc/25a797723cd0b4fb087d606778cf67/deseq2/pseudoaligner/salmon.pca.vals_mqc.tsv` and those are the [lines](https://github.com/JoseEspinosa/nf-core-rnaseq/blob/ce748489a2b485e5c81a71ae7a7e9f84c371be3e/modules/local/deseq2_qc.nf#L50-L53) that generates the corresponding table.
+  
